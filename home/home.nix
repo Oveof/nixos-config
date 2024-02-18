@@ -47,7 +47,6 @@
     };
   };
 
-  # TODO: Set your username
   home = {
     username = "ove";
     homeDirectory = "/home/ove";

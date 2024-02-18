@@ -7,10 +7,10 @@
     ./hardware-configuration.nix
 
     ../common/global
-    ../common/users/ove
+    # ../common/users/ove
 
-    ../common/optional/pipewire.nix
-    ../common/optional/quietboot.nix
+    # ../common/optional/pipewire.nix
+    # ../common/optional/quietboot.nix
   ];
 
   networking = {
