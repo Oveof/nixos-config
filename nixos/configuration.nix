@@ -22,15 +22,7 @@
 
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
-    inputs.home-manager.nixosModules.home-manage
   ];
-  home-manager = {
-    extraSpecialArgs = { inherit inputs outputs; };
-    users = {
-      # Import your home-manager configuration
-      your-username = import ../home-manager/home.nix;
-    };
-  };
 
   nixpkgs = {
     # You can add overlays here
@@ -81,45 +73,27 @@
 
   # FIXME: Add the rest of your current configuration
 
-  networking = {
-    hostName = "t14s";
-    wireless.iwd.enable = true
-  };
-  services.xserver = {
-    layout = "no";
-    xkbVariant = "nodeadkeys";
-  };
+  # TODO: Set your hostname
+  networking.hostName = "your-hostname";
 
   # TODO: This is just an example, be sure to use whatever bootloader you prefer
   boot.loader.systemd-boot.enable = true;
 
   # TODO: Configure your system-wide user settings (groups, etc), add more users as needed.
   users.users = {
-    ove = {
+    # FIXME: Replace with your username
+    your-username = {
       # TODO: You can set an initial password for your user.
       # If you do, you can skip setting a root password by passing '--no-root-passwd' to nixos-install.
       # Be sure to change it (using passwd) after rebooting!
+      initialPassword = "correcthorsebatterystaple";
       isNormalUser = true;
-      description = "Ove";
       openssh.authorizedKeys.keys = [
         # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
       ];
       # TODO: Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
-      extraGroups = ["wheel" "networkmanager" "docker"];
+      extraGroups = ["wheel"];
     };
-  };
-  time.timeZone = "Europe/Oslo";
-  services.fwud.enable = true;
-  
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;  
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
   };
 
   # This setups a SSH server. Very important if you're setting up a headless system.
