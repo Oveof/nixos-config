@@ -12,19 +12,12 @@
 
     ];
 
-  # Bootloader.
-  boot.loader = {
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot/efi"; # ← use the same mount point here.
-    };
-    grub = {
-      enable = true;
-      device = "nodev";  #  "nodev"
-      efiSupport = true;
-      # useOSProber = true;
-      #efiInstallAsRemovable = true; # in case canTouchEfiVariables doesn't work for your system
-    };
+
+  wsl = {
+    enable = true;
+    defaultUser = "ove";
+    wslConf.automount.root = "/mnt";
+    nativeSystemd = true;
   };
 
   networking.hostName = "ove-t14s"; # Define your hostname.
