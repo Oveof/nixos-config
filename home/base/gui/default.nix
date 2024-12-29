@@ -7,5 +7,6 @@
     ./firefox.nix
     ./obsidian.nix
     ./zathura.nix
+    ./waybar
   ];
 }

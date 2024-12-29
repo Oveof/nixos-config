@@ -3,6 +3,6 @@
   imports = [
     ./atuin
     ./neovim
-    ./tmux.nix
+    ./tmux
   ];
 }

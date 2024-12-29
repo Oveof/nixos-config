@@ -1,0 +1,7 @@
+bookmarks = [
+    "/home/ove/coppermind",
+]
+
+[[search_dirs]]
+path = "/home/ove/Repos"
+depth = 10
