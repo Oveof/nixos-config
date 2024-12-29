@@ -10,8 +10,6 @@
       # ../../modules/base.nix
       ../../modules/nixos
 
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
     ];
 
   # Bootloader.
