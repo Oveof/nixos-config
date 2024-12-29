@@ -1,3 +1,0 @@
-[submodule "home/base/tui/neovim/nvim"]
-	path = home/base/tui/neovim/nvim
-	url = git@github.com:Oveof/nvim.git
