@@ -18,7 +18,7 @@
   boot.loader = {
     efi = {
       canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot/efi"; # ← use the same mount point here.
+      efiSysMountPoint = "/boot"; # ← use the same mount point here.
     };
     grub = {
       enable = true;
@@ -29,7 +29,7 @@
     };
   };
 
-  networking.hostName = "ove-t14s"; # Define your hostname.
+  networking.hostName = "ove-y50"; # Define your hostname.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
