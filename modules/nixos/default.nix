@@ -8,5 +8,6 @@
     ./user-group.nix
     ./virtualisation.nix
     ./grahpics.nix
+    ./desktop.nix
   ];
 }
