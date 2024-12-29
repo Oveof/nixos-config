@@ -7,5 +7,6 @@
     ./peripherals.nix
     ./user-group.nix
     ./virtualisation.nix
+    ./grahpics.nix
   ];
 }
