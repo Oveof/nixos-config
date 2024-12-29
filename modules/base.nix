@@ -48,7 +48,6 @@
     tree
     gnutar
     rsync
-    atuin
   ];
 
   users.users.${username} = {

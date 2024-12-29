@@ -1,6 +1,5 @@
 {
   pkgs,
-  nur-ryan4yin,
   ...
 }: {
   home.packages = with pkgs; [
@@ -48,21 +47,6 @@
     #   icons = "auto";
     # };
 
-    # a cat(1) clone with syntax highlighting and Git integration.
-    bat = {
-      enable = true;
-      config = {
-        pager = "less -FR";
-        theme = "catppuccin-mocha";
-      };
-      themes = {
-        # https://raw.githubusercontent.com/catppuccin/bat/main/Catppuccin-mocha.tmTheme
-        catppuccin-mocha = {
-          src = nur-ryan4yin.packages.${pkgs.system}.catppuccin-bat;
-          file = "Catppuccin-mocha.tmTheme";
-        };
-      };
-    };
 
     # A command-line fuzzy finder
     # TODO: FIX COLORS
@@ -93,11 +77,5 @@
       enableNushellIntegration = true;
     };
 
-    atuin = {
-      enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-      enableFishIntegration = true;
-    };
   };
 }

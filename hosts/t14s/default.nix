@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, nixos-hardware, ... }:
+{ config, pkgs, nixos-hardware,... }:
 
 {
   imports =
@@ -14,7 +14,7 @@
       ./hardware-configuration.nix
     ];
 
-  # # Bootloader.
+  # Bootloader.
   boot.loader = {
     efi = {
       canTouchEfiVariables = true;
@@ -39,6 +39,8 @@
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.backend = "iwd";
   # networking.defaultGateway = "192.168.5.201";
+
+
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
