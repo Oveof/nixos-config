@@ -9,9 +9,11 @@
   home.file."coppermind" = {
     enable = true;
     source = ./empty;
+    recursive = true;
   };
   home.file."Repos" = {
     enable = true;
     source = ./empty;
+    recursive = true;
   };
 }
