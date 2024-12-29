@@ -1,6 +1,7 @@
 {...}:
 {
   imports = [
+    ../base.nix
     ./insecure-packages.nix
     ./nix.nix
     ./peripherals.nix
