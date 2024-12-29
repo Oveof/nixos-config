@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, nixos-hardware,... }:
+{ config, pkgs, nixos-hardware, username,... }:
 
 {
   imports =
@@ -15,7 +15,7 @@
 
   wsl = {
     enable = true;
-    defaultUser = "ove";
+    defaultUser = username;
     wslConf.automount.root = "/mnt";
     nativeSystemd = true;
   };
