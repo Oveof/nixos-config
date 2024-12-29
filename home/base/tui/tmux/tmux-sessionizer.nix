@@ -8,8 +8,10 @@
   };
   home.file."coppermind" = {
     enable = true;
+    source = ./empty;
   };
   home.file."Repos" = {
     enable = true;
+    source = ./empty;
   };
 }
