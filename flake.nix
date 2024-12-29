@@ -90,7 +90,7 @@
             ./modules/nixos/default.nix
             ./hosts/wsl
 
-            nixos-wsl
+            nixos-wsl.nixosModules.wsl
             # ./users/${username}/nixos.nix
 
             home-manager.nixosModules.home-manager
