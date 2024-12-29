@@ -9,5 +9,6 @@
     ./virtualisation.nix
     ./grahpics.nix
     ./desktop.nix
+    ./fonts.nix
   ];
 }
