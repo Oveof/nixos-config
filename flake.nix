@@ -105,7 +105,7 @@
           ];
         };
 
-      wm = let
+      y50 = let
         username = "ove";
         specialArgs = {inherit username;};
       in
@@ -114,12 +114,9 @@
           system = "x86_64-linux";
 
           modules = [
-            # ./home/linux/gui.nix
+            ./modules/nixos
+            ./hosts/y50
 
-            ./modules/nixos/default.nix
-            ./hosts/vm
-
-            nixos-wsl.nixosModules.wsl
             # ./users/${username}/nixos.nix
 
             home-manager.nixosModules.home-manager
