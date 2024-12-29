@@ -28,6 +28,11 @@
       # to avoid problems caused by different versions of nixpkgs dependencies.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # wsl stuff
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     ghostty = {
       url = "github:ghostty-org/ghostty";
@@ -38,6 +43,7 @@
     nixpkgs,
     home-manager,
     nixos-hardware,
+    nixos-wsl,
     ...
   }: {
     nixosConfigurations = {
@@ -69,6 +75,35 @@
             }
           ];
         };
-      };
+
+      wsl = let
+        username = "ove";
+        specialArgs = {inherit username;};
+      in
+        nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          system = "x86_64-linux";
+
+          modules = [
+            # ./home/linux/gui.nix
+
+            ./modules/nixos/default.nix
+            ./hosts/wsl
+
+            nixos-wsl
+            # ./users/${username}/nixos.nix
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+
+              home-manager.extraSpecialArgs = inputs // specialArgs;
+              # home-manager.users.${username} = import ./users/${username}/home.nix;
+              home-manager.users.${username} = import ./home/tui.nix;
+            }
+          ];
+        };
+    };
   };
 }
