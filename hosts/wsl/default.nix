@@ -20,7 +20,7 @@
     nativeSystemd = true;
   };
 
-  networking.hostName = "ove-t14s"; # Define your hostname.
+  networking.hostName = "ove-wsl"; # Define your hostname.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
