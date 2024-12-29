@@ -8,5 +8,6 @@
     ./obsidian.nix
     ./zathura.nix
     ./waybar
+    ./rofi
   ];
 }
