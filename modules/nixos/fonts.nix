@@ -10,5 +10,10 @@
       meslo-lg
       jetbrains-mono
     ];
+    fontconfig.defaultFonts = {
+      serif = ["FiraCode Nerd Font"];
+      sansSerif = ["FiraCode Nerd Font"];
+      monospace = ["FiraMono Nerd Font"];
+    };
   };
 }
