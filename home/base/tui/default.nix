@@ -1,4 +1,8 @@
 {...}:
 {
-  imports = [];
+  imports = [
+    ./atuin
+    ./neovim
+    ./tmux.nix
+  ];
 }
