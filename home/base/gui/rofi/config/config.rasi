@@ -15,6 +15,7 @@
     /* Theme settings */
     highlight: bold italic;
     scrollbar: true;
+    font: "FiraCode Nerd Font 10";
 
     /* Gruvbox dark colors */
     gruvbox-dark-bg0:          #282828;
