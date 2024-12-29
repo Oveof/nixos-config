@@ -6,14 +6,4 @@
     recursive = true;   # link recursively
     executable = true;  # make all files executable
   };
-  home.file."coppermind" = {
-    enable = true;
-    source = ./empty;
-    recursive = true;
-  };
-  home.file."Repos" = {
-    enable = true;
-    source = ./empty;
-    recursive = true;
-  };
 }
