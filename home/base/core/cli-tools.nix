@@ -22,6 +22,9 @@
     du-dust # A more intuitive version of `du` in rust
     gdu # disk usage analyzer(replacement of `du`)
 
+    # for neovim
+    clang
+
     # nix related
     #
     # it provides the command `nom` works just like `nix
