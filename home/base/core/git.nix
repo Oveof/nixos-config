@@ -12,15 +12,15 @@
     rm -f ${config.home.homeDirectory}/.gitconfig
   '';
 
-  home.packages = with pkgs; [
-  ];
+  # home.packages = with pkgs; [
+  # ];
 
   programs.git = {
     enable = true;
     lfs.enable = true;
 
-    # userName = myvars.userfullname;
-    # userEmail = myvars.useremail;
+    userName = "oveof";
+    userEmail = "ovedy@oftedal.com";
 
     # includes = [
     #   {

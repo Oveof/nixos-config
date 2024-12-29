@@ -1,0 +1,2 @@
+mkdir ~/repos
+mkdir ~/coppermind
