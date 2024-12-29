@@ -1,7 +1,7 @@
 {pkgs, ...}:
 {
   fonts = {
-    enableDefaultPackages = false;
+    enableDefaultPackages = true;
     fontDir.enable = true;
 
     packages = with pkgs; [
