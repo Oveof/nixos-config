@@ -29,7 +29,7 @@
     };
   };
 
-  networking.hostName = "ove-g8"; # Define your hostname.
+  networking.hostName = "g8"; # Define your hostname.
 
 
   # Configure network proxy if necessary
