@@ -31,9 +31,6 @@
 
   networking.hostName = "ove-g8"; # Define your hostname.
 
-  wayland.windowManager.hyprland = {
-    monitor = "eDP-1,highres,auto,1.5,bitdepth,10";
-  };
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
