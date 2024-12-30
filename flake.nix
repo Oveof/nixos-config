@@ -152,7 +152,7 @@
 
               home-manager.extraSpecialArgs = inputs // specialArgs;
               # home-manager.users.${username} = import ./users/${username}/home.nix;
-              home-manager.users.${username} = import ./home/gui.nix;
+              home-manager.users.${username} = import ./hosts/g8/home.nix;
             }
           ];
         };
