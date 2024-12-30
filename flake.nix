@@ -130,6 +130,32 @@
             }
           ];
         };
+
+      g8 = let
+        username = "ove";
+        specialArgs = {inherit username;};
+      in
+        nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          system = "x86_64-linux";
+
+          modules = [
+            ./modules/nixos
+            ./hosts/g8
+
+            # ./users/${username}/nixos.nix
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+
+              home-manager.extraSpecialArgs = inputs // specialArgs;
+              # home-manager.users.${username} = import ./users/${username}/home.nix;
+              home-manager.users.${username} = import ./home/gui.nix;
+            }
+          ];
+        };
     };
   };
 }
