@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, nixos-hardware,... }:
+{ lib, config, pkgs, nixos-hardware,... }:
 
 {
   imports =
@@ -27,6 +27,12 @@
     #   # useOSProber = true;
     #   #efiInstallAsRemovable = true; # in case canTouchEfiVariables doesn't work for your system
     # };
+  };
+  boot.loader.systemd-boot.enable = lib.mkForce false;
+
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
   };
 
   networking.hostName = "g8"; # Define your hostname.
