@@ -3,9 +3,9 @@
   programs.neovim = {
     enable = true;
   };
-  home.file.".config/nvim" = {
-    source = config.lib.file.mkOutOfStoreSymlink ./nvim;
-    recursive = true;   # link recursively
-    executable = true;  # make all files executable
+
+  xdg.configFile.nvim = {
+    source = config.lib.file.mkOutOfStoreSymlink /home/ove/Repos/nixos-config/home/base/tui/neovim/nvim;
+    recursive = true;
   };
 }
