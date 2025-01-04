@@ -3,7 +3,7 @@
   imports = [
     ../../home/gui.nix
   ];
-  wayland.windowManager.hyprland = {
-    monitor = "eDP-1,highres,auto,1.5,bitdepth,10";
+  home.file.".config/hypr/monitors.conf" = {
+    source = ./monitor/monitors.conf;
   };
 }
