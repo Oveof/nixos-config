@@ -33,7 +33,12 @@
       url = "github:nix-community/NixOS-WSL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
 
+      # Optional but recommended to limit the size of your system closure.
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     ghostty = {
       url = "github:ghostty-org/ghostty";
     };
@@ -44,6 +49,7 @@
     home-manager,
     nixos-hardware,
     nixos-wsl,
+    lanzaboote,
     ...
   }: {
     nixosConfigurations = {
@@ -144,6 +150,7 @@
             ./hosts/g8
 
             # ./users/${username}/nixos.nix
+            lanzaboote.nixosModules.lanzaboote
 
             home-manager.nixosModules.home-manager
             {
