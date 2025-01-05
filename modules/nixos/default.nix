@@ -10,5 +10,7 @@
     ./grahpics.nix
     ./desktop.nix
     ./fonts.nix
+    ./firmware.nix
+    ./locale.nix
   ];
 }
