@@ -28,6 +28,7 @@
     #   #efiInstallAsRemovable = true; # in case canTouchEfiVariables doesn't work for your system
     # };
   };
+
   boot.loader.systemd-boot.enable = lib.mkForce false;
 
   boot.lanzaboote = {

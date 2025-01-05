@@ -27,7 +27,7 @@ in {
       ];
     };
     systemd = {
-      enable = true;
+      enable = false;
       variables = ["--all"];
     };
   };
@@ -36,6 +36,9 @@ in {
     recursive = true;   # link recursively
     executable = true;  # make all files executable
   };
-
+  home.file.".wayland-session" = {
+    source = "${pkgs.hyprland}/bin/Hyprland";
+    executable = true;
+  };
 
 }

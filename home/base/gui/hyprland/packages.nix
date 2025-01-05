@@ -19,6 +19,8 @@
     mako # the notification daemon, the same as dunst
 
     yad # a fork of zenity, for creating dialogs
+    
+    brightnessctl
 
     # audio
     alsa-utils # provides amixer/alsamixer/...

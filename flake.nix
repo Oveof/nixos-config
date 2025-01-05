@@ -39,8 +39,9 @@
       # Optional but recommended to limit the size of your system closure.
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
+    hyprpanel = {
+      url = "github:Jas-SinghFSU/HyprPanel";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
   outputs = inputs @ {
@@ -50,6 +51,8 @@
     nixos-hardware,
     nixos-wsl,
     lanzaboote,
+    hyprpanel,
+
     ...
   }: {
     nixosConfigurations = {
@@ -66,6 +69,7 @@
 
             ./modules/nixos/default.nix
             ./hosts/t14s
+            {nixpkgs.overlays = [inputs.hyprpanel.overlay];}
 
             nixos-hardware.nixosModules.lenovo-thinkpad-t14s
             # ./users/${username}/nixos.nix
@@ -74,6 +78,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+
 
               home-manager.extraSpecialArgs = inputs // specialArgs;
               # home-manager.users.${username} = import ./users/${username}/home.nix;
@@ -151,6 +156,8 @@
 
             # ./users/${username}/nixos.nix
             lanzaboote.nixosModules.lanzaboote
+
+            {nixpkgs.overlays = [inputs.hyprpanel.overlay];}
 
             home-manager.nixosModules.home-manager
             {
