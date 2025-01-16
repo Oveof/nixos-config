@@ -9,5 +9,6 @@
     ./zathura.nix
     ./waybar
     ./rofi
+    ./thunderbird.nix
   ];
 }

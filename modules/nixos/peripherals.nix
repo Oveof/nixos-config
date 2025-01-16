@@ -4,6 +4,7 @@
   environment.systemPackages = with pkgs; [
     pulseaudio # provides `pactl`, which is required by some apps(e.g. sonic-pi)
   ];
+  programs.noisetorch.enable = true;
 
   services.pipewire = {
     enable = true;

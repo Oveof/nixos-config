@@ -3,4 +3,5 @@
   # i18n.extraLocaleSettings = {
   #   LC_TIME = "nb_NO.UTF-8";
   # };
+  time.timeZone = "Europe/Oslo";
 }

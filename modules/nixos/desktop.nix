@@ -6,24 +6,10 @@
   ...
 }:
 {
-  # services.displayManager.sddm = {
-  #   enable = true;
-  #   wayland.enable = true;
-  # };
-  # environment.etc = {
-  #   "greetd/config.toml".text = ''
-  #   [default_session]
-  #   command = "$HOME/.wayland-session"
-  #   user = "ove"
-  #   '';
-  # };
-  # programs.hyprland = {
-  #   enable = true;
-  # };
-  # services.displayManager.defaultSession = "Hyprland";
-  # programs.regreet = {
-  #   enable = true;
-  # };
+  programs.hyprland = {
+    enable = true;
+  };
+  programs.kdeconnect.enable = true;
   services = {
     xserver.enable = false; # disable xorg server
     # https://wiki.archlinux.org/title/Greetd

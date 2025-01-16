@@ -1,3 +1,4 @@
+{pkgs, ...}:
 {
   virtualisation = {
     docker = {
@@ -16,13 +17,17 @@
     # Usage: https://wiki.nixos.org/wiki/Waydroid
     # waydroid.enable = true;
 
-    # libvirtd = {
-    #   enable = true;
-    #   # hanging this option to false may cause file permission issues for existing guests.
-    #   # To fix these, manually change ownership of affected files in /var/lib/libvirt/qemu to qemu-libvirtd.
-    #   qemu.runAsRoot = true;
-    # };
+    libvirtd = {
+      enable = true;
+      # hanging this option to false may cause file permission issues for existing guests.
+      # To fix these, manually change ownership of affected files in /var/lib/libvirt/qemu to qemu-libvirtd.
+      qemu.runAsRoot = true;
+    };
 
     # lxd.enable = true;
   };
+  environment.systemPackages = with pkgs; [
+    distrobox
+    virt-manager
+  ];
 }
