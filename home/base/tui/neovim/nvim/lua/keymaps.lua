@@ -45,8 +45,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Center cursor when moving up and down half a page
 vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
+
+-- Disable arrow keys in insert mode for movement
+vim.keymap.set('i', '<Left>', '<Nop>')
+vim.keymap.set('i', '<Right>', '<Nop>')
+vim.keymap.set('i', '<Up>', '<Nop>')
+vim.keymap.set('i', '<Down>', '<Nop>')
+
 -- vim: ts=2 sts=2 sw=2 et
