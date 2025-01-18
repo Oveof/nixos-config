@@ -18,7 +18,7 @@
     useOSProber = true;
   }
 
-  console.keyMap = "no"
+  console.keyMap = "no";
 
   networking.hostName = "nixos"; # Define your hostname.
 
