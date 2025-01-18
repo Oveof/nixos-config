@@ -16,7 +16,7 @@
     enable = true;
     device = "/dev/sda";
     useOSProber = true;
-  }
+  };
 
   console.keyMap = "no";
 
