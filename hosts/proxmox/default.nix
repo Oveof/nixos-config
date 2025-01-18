@@ -2,34 +2,25 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, nixos-hardware,... }:
+{ config, pkgs, nixos-hardware, username,... }:
 
 {
   imports =
     [
       ../../modules/base.nix
-      ../../modules/nixos/client
+      ../../modules/nixos/server
 
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
     ];
 
-  # Bootloader.
-  boot.loader = {
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot"; # ← use the same mount point here.
-    };
-    grub = {
-      enable = true;
-      device = "nodev";  #  "nodev"
-      efiSupport = true;
-      # useOSProber = true;
-      #efiInstallAsRemovable = true; # in case canTouchEfiVariables doesn't work for your system
-    };
-  };
+  boot.loader.grub = {
+    enable = true;
+    device = "/dev/sda";
+    useOSProber = true;
+  }
 
-  networking.hostName = "ove-t14s"; # Define your hostname.
+  console.keyMap = "no"
+
+  networking.hostName = "nixos"; # Define your hostname.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -37,9 +28,19 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  networking.networkmanager.wifi.backend = "iwd";
-  # networking.defaultGateway = "192.168.5.201";
-
+  services.openssh.enable = true;
+  networking = {
+    interfaces.ens3 = {
+      ipv4.addresses = [{
+        address = "192.168.11.46";
+        prefixLength = 24;
+      }];
+    };
+    defaultGateway = {
+      address = "192.168.11.1";
+      interface = "ens18";
+    };
+  };
 
 
   # This value determines the NixOS release from which the default

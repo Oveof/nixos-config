@@ -7,8 +7,8 @@
 {
   imports =
     [
-      # ../../modules/base.nix
-      ../../modules/nixos
+      ../../modules/base.nix
+      ../../modules/nixos/base
 
     ];
 
@@ -20,7 +20,7 @@
     nativeSystemd = true;
   };
 
-  networking.hostName = "ove-wsl"; # Define your hostname.
+  networking.hostName = "wsl"; # Define your hostname.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
