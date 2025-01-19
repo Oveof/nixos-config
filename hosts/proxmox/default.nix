@@ -31,7 +31,7 @@
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
   networking = {
-    interfaces.ens3 = {
+    interfaces.ens18 = {
       ipv4.addresses = [{
         address = "192.168.11.46";
         prefixLength = 24;
