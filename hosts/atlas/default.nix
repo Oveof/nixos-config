@@ -33,6 +33,7 @@
       address = "192.168.11.1";
       interface = "enp0s31f6";
     };
+    nameservers = ["1.1.1.1"];
   };
 
 
