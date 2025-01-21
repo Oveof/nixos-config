@@ -168,33 +168,6 @@
             }
           ];
         };
-
-      raspberry-3 = let
-        username = "ove";
-        specialArgs = {inherit username;};
-      in
-        nixpkgs.lib.nixosSystem {
-          inherit specialArgs;
-          system = "x86_64-linux";
-
-          modules = [
-            ./hosts/raspberry-3
-            nixos-hardware.nixosModules.raspberry-pi-3
-
-            # ./users/${username}/nixos.nix
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-
-              home-manager.extraSpecialArgs = inputs // specialArgs;
-              # home-manager.users.${username} = import ./users/${username}/home.nix;
-              home-manager.users.${username} = import ./home/core.nix;
-            }
-          ];
-        };
-
       proxmox = let
         username = "ove";
         specialArgs = {inherit username;};
@@ -205,6 +178,28 @@
 
           modules = [
             ./hosts/proxmox
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+
+              home-manager.extraSpecialArgs = inputs // specialArgs;
+              # home-manager.users.${username} = import ./users/${username}/home.nix;
+              home-manager.users.${username} = import ./home/tui.nix;
+            }
+          ];
+        };
+      atlas = let
+        username = "ove";
+        specialArgs = {inherit username;};
+      in
+        nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          system = "x86_64-linux";
+
+          modules = [
+            ./hosts/atlas
 
             home-manager.nixosModules.home-manager
             {
