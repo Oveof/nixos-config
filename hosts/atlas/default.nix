@@ -7,30 +7,34 @@
 {
   imports =
     [
+      ./hardware-configuration.nix
       ../../modules/base.nix
-      ../../modules/nixos/base
+      ../../modules/nixos/server
 
     ];
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
+  console.keyMap = "no";
 
-  wsl = {
-    enable = true;
-    defaultUser = username;
-    wslConf.automount.root = "/mnt";
-    nativeSystemd = true;
-  };
-
-  networking.hostName = "wsl"; # Define your hostname.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  networking.hostName = "atlas"; # Define your hostname.
 
   # Enable networking
   networking.networkmanager.enable = true;
-  networking.networkmanager.wifi.backend = "iwd";
-  # networking.defaultGateway = "192.168.5.201";
-
+  services.openssh.enable = true;
+  networking = {
+    interfaces.enp0s31f6 = {
+      ipv4.addresses = [{
+        address = "192.168.11.40";
+        prefixLength = 24;
+      }];
+    };
+    defaultGateway = {
+      address = "192.168.11.1";
+      interface = "enp0s31f6";
+    };
+    nameservers = ["1.1.1.1"];
+  };
 
 
   # This value determines the NixOS release from which the default

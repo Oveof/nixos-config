@@ -48,8 +48,6 @@
     tree
     gnutar
     rsync
-    kdePackages.kdeconnect-kde
-
   ];
 
   users.users.${username} = {

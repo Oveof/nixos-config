@@ -65,9 +65,6 @@
           system = "x86_64-linux";
 
           modules = [
-            # ./home/linux/gui.nix
-
-            ./modules/nixos/default.nix
             ./hosts/t14s
             {nixpkgs.overlays = [inputs.hyprpanel.overlay];}
 
@@ -98,8 +95,6 @@
 
           modules = [
             # ./home/linux/gui.nix
-
-            ./modules/nixos/default.nix
             ./hosts/wsl
 
             nixos-wsl.nixosModules.wsl
@@ -126,7 +121,6 @@
           system = "x86_64-linux";
 
           modules = [
-            ./modules/nixos
             ./hosts/y50
 
             # ./users/${username}/nixos.nix
@@ -152,7 +146,6 @@
           system = "x86_64-linux";
 
           modules = [
-            ./modules/nixos
             ./hosts/g8
 
             # ./users/${username}/nixos.nix
@@ -175,8 +168,7 @@
             }
           ];
         };
-
-      raspberry-3 = let
+      proxmox = let
         username = "ove";
         specialArgs = {inherit username;};
       in
@@ -185,11 +177,7 @@
           system = "x86_64-linux";
 
           modules = [
-            ./modules/nixos
-            ./hosts/raspberry-3
-            nixos-hardware.nixosModules.raspberry-pi-3
-
-            # ./users/${username}/nixos.nix
+            ./hosts/proxmox
 
             home-manager.nixosModules.home-manager
             {
@@ -198,10 +186,33 @@
 
               home-manager.extraSpecialArgs = inputs // specialArgs;
               # home-manager.users.${username} = import ./users/${username}/home.nix;
-              home-manager.users.${username} = import ./home/core.nix;
+              home-manager.users.${username} = import ./home/tui.nix;
             }
           ];
         };
+      atlas = let
+        username = "ove";
+        specialArgs = {inherit username;};
+      in
+        nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          system = "x86_64-linux";
+
+          modules = [
+            ./hosts/atlas
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+
+              home-manager.extraSpecialArgs = inputs // specialArgs;
+              # home-manager.users.${username} = import ./users/${username}/home.nix;
+              home-manager.users.${username} = import ./home/tui.nix;
+            }
+          ];
+        };
+
     };
   };
 }
