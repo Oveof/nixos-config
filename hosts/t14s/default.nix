@@ -29,6 +29,7 @@
     };
   };
 
+  services.openssh.enable = true;
   networking.hostName = "ove-t14s"; # Define your hostname.
 
   # Configure network proxy if necessary
