@@ -1,6 +1,7 @@
 {...}:
 {
   imports = [
+    ../../base.nix
     ../base
     ./fonts.nix
     ./desktop.nix

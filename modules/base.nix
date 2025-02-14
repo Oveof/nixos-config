@@ -48,6 +48,7 @@
     tree
     gnutar
     rsync
+    pavucontrol
   ];
 
   users.users.${username} = {

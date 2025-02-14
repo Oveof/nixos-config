@@ -8,7 +8,7 @@
   imports =
     [
       # ../../modules/base.nix
-      ../../modules/nixos
+      ../../modules/nixos/client
 
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
