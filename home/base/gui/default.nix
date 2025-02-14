@@ -11,5 +11,6 @@
     ./rofi
     ./thunderbird.nix
     ./spotify.nix
+    ./libreoffice.nix
   ];
 }
