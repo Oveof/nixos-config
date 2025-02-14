@@ -10,5 +10,6 @@
     ./waybar
     ./rofi
     ./thunderbird.nix
+    ./spotify.nix
   ];
 }
