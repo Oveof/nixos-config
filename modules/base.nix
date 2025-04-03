@@ -49,6 +49,7 @@
     gnutar
     rsync
     pavucontrol
+    tlrc
   ];
 
   users.users.${username} = {
