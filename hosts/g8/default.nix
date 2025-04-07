@@ -8,7 +8,7 @@
   imports =
     [
       # ../../modules/base.nix
-      ../../modules/nixos
+      ../../modules/nixos/client
 
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -30,6 +30,13 @@
   };
 
   boot.loader.systemd-boot.enable = lib.mkForce false;
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      libvdpau-va-gl
+    ];
+  };
 
   boot.lanzaboote = {
     enable = true;
