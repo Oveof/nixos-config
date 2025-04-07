@@ -13,5 +13,6 @@
     ./thunderbird.nix
     ./spotify.nix
     ./libreoffice.nix
+    ./ghostty
   ];
 }
