@@ -30,8 +30,17 @@ return {
       vim.keymap.set('n', '<A-w>', function()
         ui.nav_file(5)
       end)
+      vim.keymap.set('n', '<A-n>', function()
+        ui.nav_file(1)
+      end)
       vim.keymap.set('n', '<A-e>', function()
-        ui.nav_file(6)
+        ui.nav_file(2)
+      end)
+      vim.keymap.set('n', '<A-i>', function()
+        ui.nav_file(3)
+      end)
+      vim.keymap.set('n', '<A-o>', function()
+        ui.nav_file(4)
       end)
     end,
   },

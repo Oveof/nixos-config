@@ -14,7 +14,11 @@
     extraConfig = ''
       set -g base-index 1
       setw -g pane-base-index 1
-      bind o display-popup -E "tms"
+      bind h display-popup -E "tms"
+      bind n select-window -t 1
+      bind e select-window -t 2
+      bind i select-window -t 3
+      bind o select-window -t 4
       unbind C-b
       set-option -g prefix C-a
       set-window-option -g mode-keys vi

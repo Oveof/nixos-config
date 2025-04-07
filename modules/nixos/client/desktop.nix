@@ -28,4 +28,10 @@
     };
   };
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      libvdpau-va-gl
+    ];
+  };
 }

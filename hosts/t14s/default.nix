@@ -30,6 +30,11 @@
   };
 
   services.openssh.enable = true;
+  services.fprintd = {
+    enable = true;
+    # tod.enable = true;
+    # tod.driver = pkgs.libfprint-2-tod1-goodix;
+  };
   networking.hostName = "ove-t14s"; # Define your hostname.
 
   # Configure network proxy if necessary

@@ -12,9 +12,9 @@
     };
    carapace.enable = true;
    carapace.enableNushellIntegration = true;
-   tmux.extraConfig = ''
-    set-option -g default-shell ${pkgs.nushell}/bin/nu
-   '';
+   # tmux.extraConfig = ''
+   #  set-option -g default-shell ${pkgs.nushell}/bin/nu
+   # '';
 
   };
 }
