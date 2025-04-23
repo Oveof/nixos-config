@@ -14,5 +14,6 @@
     ./spotify.nix
     ./libreoffice.nix
     ./ghostty
+    ./pomodoro.nix
   ];
 }
