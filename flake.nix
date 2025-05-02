@@ -34,13 +34,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
+      url = "github:nix-community/lanzaboote/v0.4.2";
 
       # Optional but recommended to limit the size of your system closure.
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprpanel = {
       url = "github:Jas-SinghFSU/HyprPanel";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-ld = {
+      url = "github:Mic92/nix-ld";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -52,7 +56,7 @@
     nixos-wsl,
     lanzaboote,
     hyprpanel,
-
+    nix-ld,
     ...
   }: {
     nixosConfigurations = {
@@ -150,6 +154,7 @@
 
             # ./users/${username}/nixos.nix
             lanzaboote.nixosModules.lanzaboote
+            nix-ld.nixosModules.nix-ld
 
             {nixpkgs.overlays = [inputs.hyprpanel.overlay];}
 
