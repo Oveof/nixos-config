@@ -15,5 +15,6 @@
     ./libreoffice.nix
     ./ghostty
     ./pomodoro.nix
+    ./chromium.nix
   ];
 }

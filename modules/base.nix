@@ -50,6 +50,7 @@
     rsync
     pavucontrol
     tlrc
+    btop
   ];
 
   users.users.${username} = {
