@@ -1,5 +1,4 @@
+{ pkgs, ... }:
 {
-  programs.pomodoro-gtk = {
-    enable = true;
-  };
+  home.packages = [ pkgs.pomodoro-gtk ];
 }
