@@ -17,7 +17,6 @@
     enable = true;
     defaultUser = username;
     wslConf.automount.root = "/mnt";
-    nativeSystemd = true;
   };
 
   networking.hostName = "wsl"; # Define your hostname.
