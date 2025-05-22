@@ -28,7 +28,13 @@
       #efiInstallAsRemovable = true; # in case canTouchEfiVariables doesn't work for your system
     };
   };
-
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      libvdpau-va-gl
+    ];
+  };
   services.openssh.enable = true;
   services.fprintd = {
     enable = true;

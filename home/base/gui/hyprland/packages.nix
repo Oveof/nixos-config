@@ -29,4 +29,9 @@
     ncmpcpp # a mpd client with a UI
     networkmanagerapplet # provide GUI app: nm-connection-editor
   ];
+  home.file.".config/mako" = {
+    source = ./mako_config;
+    recursive = true;   # link recursively
+    executable = true;  # make all files executable
+  };
 }

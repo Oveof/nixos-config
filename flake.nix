@@ -71,6 +71,7 @@
           modules = [
             ./hosts/t14s
             {nixpkgs.overlays = [inputs.hyprpanel.overlay];}
+            nix-ld.nixosModules.nix-ld
 
             nixos-hardware.nixosModules.lenovo-thinkpad-t14s
             # ./users/${username}/nixos.nix
