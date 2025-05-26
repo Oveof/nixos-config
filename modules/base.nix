@@ -51,6 +51,7 @@
     pavucontrol
     tlrc
     btop
+    playerctl
   ];
 
   users.users.${username} = {
