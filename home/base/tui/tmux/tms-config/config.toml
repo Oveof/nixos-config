@@ -1,7 +1,8 @@
 bookmarks = [
     "/home/ove/coppermind",
+    "/home/ove/Repos/gw-db-receiver",
 ]
 
 [[search_dirs]]
-path = "/home/ove/Repos"
+path = "/home/ove/repos"
 depth = 10

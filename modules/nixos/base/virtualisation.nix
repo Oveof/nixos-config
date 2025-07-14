@@ -2,7 +2,7 @@
 {
   virtualisation = {
     docker = {
-      enable = false;
+      enable = true;
       daemon.settings = {
         # enables pulling using containerd, which supports restarting from a partial pull
         # https://docs.docker.com/storage/containerd/
@@ -13,7 +13,7 @@
       # This is required for containers which are created with the `--restart=always` flag to work.
       enableOnBoot = true;
     };
-    podman.enable = true;
+    podman.enable = false;
 
     # Usage: https://wiki.nixos.org/wiki/Waydroid
     # waydroid.enable = true;
