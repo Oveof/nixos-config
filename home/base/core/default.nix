@@ -7,8 +7,8 @@
     ./container.nix
     ./nushell
     ./starship
-    ./jujutsu.nix
     ./direnv.nix
     ./zoxide.nix
+    ./jujutsu
   ];
 }
