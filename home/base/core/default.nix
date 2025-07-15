@@ -9,5 +9,6 @@
     ./starship
     ./jujutsu.nix
     ./direnv.nix
+    ./zoxide.nix
   ];
 }
