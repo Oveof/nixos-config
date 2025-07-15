@@ -14,6 +14,7 @@
       ui = {
         paginate = "never";
         editor = "nvim";
+        default-command = "log";
       };
     };
   };
