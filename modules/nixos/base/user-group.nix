@@ -2,14 +2,15 @@
   username,
   config,
   ...
-}: {
+}:
+{
   users.mutableUsers = true;
 
   users.groups = {
-    "${username}" = {};
-    docker = {};
-    wireshark = {};
-    plugdev = {};
+    "${username}" = { };
+    docker = { };
+    wireshark = { };
+    plugdev = { };
   };
 
   users.users."${username}" = {
@@ -25,6 +26,7 @@
       "wireshark"
       "adbusers"
       "libvirtd"
+      "gamoemode"
     ];
   };
 }

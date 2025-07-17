@@ -1,5 +1,6 @@
         {
         "layer": "top",
+        "output" : ["DP-2", "HDMI-A-1"],
         "height": 45,
         	"modules-left": ["hyprland/workspaces"],
         "modules-center": ["custom/playerctl"],

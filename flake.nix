@@ -60,6 +60,30 @@
     ...
   }: {
     nixosConfigurations = {
+      gpc = let
+        username = "ove";
+        specialArgs = {inherit username;};
+      in
+        nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          system = "x86_64-linux";
+
+          modules = [
+            ./hosts/gpc
+            nix-ld.nixosModules.nix-ld
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+	      home-manager.backupFileExtension = "backup";
+              home-manager.useUserPackages = true;
+
+
+              home-manager.extraSpecialArgs = inputs // specialArgs;
+              home-manager.users.${username} = import ./hosts/gpc/home.nix;
+            }
+          ];
+        };
       t14s = let
         username = "ove";
         specialArgs = {inherit username;};
