@@ -9,6 +9,7 @@
     [
       ../../modules/base.nix
       ../../modules/nixos/client
+      ../../modules/nixos/client/hyprland.nix
 
       # Include the results of the hardware scan.
       ./hardware-configuration.nix

@@ -84,6 +84,31 @@
             }
           ];
         };
+      sp6 = let
+        username = "ove";
+        specialArgs = {inherit username;};
+      in
+        nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          system = "x86_64-linux";
+
+          modules = [
+            ./hosts/sp6
+            nix-ld.nixosModules.nix-ld
+            nixos-hardware.nixosModules.microsoft-surface-pro-intel
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+	      home-manager.backupFileExtension = "backup";
+              home-manager.useUserPackages = true;
+
+
+              home-manager.extraSpecialArgs = inputs // specialArgs;
+              home-manager.users.${username} = import ./hosts/gpc/home.nix;
+            }
+          ];
+        };
       t14s = let
         username = "ove";
         specialArgs = {inherit username;};
