@@ -2,17 +2,24 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ lib, config, pkgs, nixos-hardware,... }:
+{
+  lib,
+  config,
+  pkgs,
+  nixos-hardware,
+  ...
+}:
 
 {
-  imports =
-    [
-      # ../../modules/base.nix
-      ../../modules/nixos/client
+  imports = [
+    # ../../modules/base.nix
+    ../../modules/nixos/client
+    ../../modules/nixos/client/hyprland.nix
+    ../../modules/nixos/client/steam.nix
 
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader = {
@@ -45,7 +52,6 @@
 
   networking.hostName = "g8"; # Define your hostname.
 
-
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -54,8 +60,6 @@
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.backend = "iwd";
   # networking.defaultGateway = "192.168.5.201";
-
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

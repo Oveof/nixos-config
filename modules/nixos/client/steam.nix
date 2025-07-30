@@ -11,5 +11,4 @@
     capSysNice = true;
   };
   programs.gamemode.enable = true;
-
 }

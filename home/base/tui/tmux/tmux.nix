@@ -22,6 +22,7 @@
       unbind C-b
       set-option -g prefix C-a
       set-window-option -g mode-keys vi
+      bind C-o display-popup -E "tms"
     '';
   };
 }
