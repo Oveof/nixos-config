@@ -55,6 +55,15 @@
       url = "github:Mic92/nix-ld";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    quickshell = {
+      url = "github:outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.quickshell.follows = "quickshell"; # Use same quickshell version
+    };
   };
   outputs =
     inputs@{
@@ -66,8 +75,7 @@
       lanzaboote,
       hyprpanel,
       nix-ld,
-      split-monitor-workspaces,
-      hyprsplit,
+      noctalia,
       ...
     }:
     {
@@ -84,6 +92,7 @@
             modules = [
               ./hosts/gpc
               nix-ld.nixosModules.nix-ld
+              noctalia.nixosModules.default
 
               home-manager.nixosModules.home-manager
               {
@@ -92,7 +101,12 @@
                 home-manager.useUserPackages = true;
 
                 home-manager.extraSpecialArgs = inputs // specialArgs;
-                home-manager.users.${username} = import ./hosts/gpc/home.nix;
+                home-manager.users.${username} = {
+                  imports = [
+                    noctalia.homeModules.default
+                    (import ./hosts/gpc/home.nix)
+                  ];
+                };
               }
             ];
           };
@@ -117,7 +131,7 @@
                 home-manager.useUserPackages = true;
 
                 home-manager.extraSpecialArgs = inputs // specialArgs;
-                home-manager.users.${username} = import ./hosts/gpc/home.nix;
+                # home-manager.users.${username} = import ./hosts/gpc/home.nix;
               }
             ];
           };

@@ -53,6 +53,7 @@
     tlrc
     btop
     playerctl
+    # obs-studio
   ];
 
   users.users.${username} = {
