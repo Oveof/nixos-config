@@ -1,10 +1,10 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 {
   programs.tmux = {
     enable = true;
     clock24 = true;
     # shortcut = "space";
-    plugins = [ 
+    plugins = [
       pkgs.tmuxPlugins.sensible
       pkgs.tmuxPlugins.gruvbox
       pkgs.tmuxPlugins.jump
@@ -19,8 +19,11 @@
       bind e select-window -t 2
       bind i select-window -t 3
       bind o select-window -t 4
+      bind l select-window -t 5
+      bind u select-window -t 6
+      bind y select-window -t 7
       unbind C-b
-      set-option -g prefix C-a
+      set-option -g prefix C-s
       set-window-option -g mode-keys vi
       bind C-o display-popup -E "tms"
     '';
