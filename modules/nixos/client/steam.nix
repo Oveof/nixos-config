@@ -1,5 +1,10 @@
-{ ... }:
+{ pkgs, ... }:
 {
+
+  environment.systemPackages = with pkgs; [
+    olympus
+    mangohud
+  ];
   programs.steam = {
     enable = true; # Master switch, already covered in installation
     remotePlay.openFirewall = true; # For Steam Remote Play
