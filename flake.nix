@@ -33,13 +33,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
+      url = "github:nix-community/lanzaboote/v0.4.3";
 
       # Optional but recommended to limit the size of your system closure.
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hyprpanel = {
-      url = "github:Jas-SinghFSU/HyprPanel";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
@@ -73,7 +69,6 @@
       nixos-hardware,
       nixos-wsl,
       lanzaboote,
-      hyprpanel,
       nix-ld,
       noctalia,
       ...
@@ -146,7 +141,6 @@
 
             modules = [
               ./hosts/t14s
-              { nixpkgs.overlays = [ inputs.hyprpanel.overlay ]; }
               nix-ld.nixosModules.nix-ld
 
               nixos-hardware.nixosModules.lenovo-thinkpad-t14s
@@ -230,12 +224,11 @@
 
             modules = [
               ./hosts/g8
+              noctalia.nixosModules.default
 
               # ./users/${username}/nixos.nix
               lanzaboote.nixosModules.lanzaboote
               nix-ld.nixosModules.nix-ld
-
-              { nixpkgs.overlays = [ inputs.hyprpanel.overlay ]; }
 
               home-manager.nixosModules.home-manager
               {
@@ -243,9 +236,13 @@
                 home-manager.useUserPackages = true;
 
                 home-manager.extraSpecialArgs = inputs // specialArgs;
-                # home-manager.users.${username} = import ./users/${username}/home.nix;
-                home-manager.users.${username} = import ./hosts/g8/home.nix;
-
+                # home-manager.users.${username} = import ./hosts/g8/home.nix;
+                home-manager.users.${username} = {
+                  imports = [
+                    noctalia.homeModules.default
+                    (import ./hosts/g8/home.nix)
+                  ];
+                };
                 # home-manager.services.wayland.windowManager.hyprland = {
                 #   monitor = "eDP-1,highres,auto,1.5,bitdepth,10";
                 # };
