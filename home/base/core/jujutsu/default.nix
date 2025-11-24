@@ -1,6 +1,8 @@
 {
+  pkgs,
   ...
-}: {
+}:
+{
   programs.jujutsu = {
     enable = true;
     # settings = {
@@ -18,7 +20,8 @@
   };
   home.file.".config/jj" = {
     source = ./config;
-    recursive = true;   # link recursively
-    executable = true;  # make all files executable
+    recursive = true; # link recursively
+    executable = true; # make all files executable
   };
+  home.packages = [ pkgs.lazyjj ];
 }
