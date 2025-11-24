@@ -7,15 +7,50 @@ return {
     'folke/snacks.nvim',
     'nvim-tree/nvim-web-devicons',
   },
+  opts = {
+    -- or "fzf-lua" or "snacks"
+    picker = "snacks",
+    -- bare Octo command opens picker of commands
+    -- enable_builtin = true,
+  },
+  keys = {
+    {
+      "<leader>oi",
+      "<CMD>Octo issue list<CR>",
+      desc = "List GitHub Issues",
+    },
+    {
+      "<leader>op",
+      "<CMD>Octo pr list<CR>",
+      desc = "List GitHub PullRequests",
+    },
+    {
+      "<leader>od",
+      "<CMD>Octo discussion list<CR>",
+      desc = "List GitHub Discussions",
+    },
+    {
+      "<leader>on",
+      "<CMD>Octo notification list<CR>",
+      desc = "List GitHub Notifications",
+    },
+    {
+      "<leader>os",
+      function()
+        require("octo.utils").create_base_search_command { include_current_repo = true }
+      end,
+      desc = "Search GitHub",
+    },
+  },
   config = function()
-    require "octo".setup({
+    require "octo".setup {
       use_local_fs = false,                      -- use local files on right side of reviews
       enable_builtin = false,                    -- shows a list of builtin actions when no action is provided
       default_remote = { "upstream", "origin" }, -- order to try remotes
-      default_merge_method = "commit",           -- default merge method which should be used for both `Octo pr merge` and merging from picker, could be `commit`, `rebase` or `squash`
+      default_merge_method = "merge",            -- default merge method which should be used for both `Octo pr merge` and merging from picker, could be `merge`, `rebase` or `squash`
       default_delete_branch = false,             -- whether to delete branch when merging pull request with either `Octo pr merge` or from picker (can be overridden with `delete`/`nodelete` argument to `Octo pr merge`)
       ssh_aliases = {},                          -- SSH aliases. e.g. `ssh_aliases = {["github.com-work"] = "github.com"}`. The key part will be interpreted as an anchored Lua pattern.
-      picker = "snacks",                         -- or "fzf-lua" or "snacks"
+      picker = "telescope",                      -- or "fzf-lua" or "snacks"
       picker_config = {
         use_emojis = false,                      -- only used by "fzf-lua" picker for now
         mappings = {                             -- mappings for the pickers
@@ -81,15 +116,15 @@ return {
       gh_env = {}, -- extra environment variables to pass on to GitHub CLI, can be a table or function returning a table
       timeout = 5000, -- timeout for requests between the remote server
       default_to_projects_v2 = false, -- use projects v2 for the `Octo card ...` command by default. Both legacy and v2 commands are available under `Octo cardlegacy ...` and `Octo cardv2 ...` respectively.
+      -- Also disable sending v2 events into Github API.
       ui = {
         use_signcolumn = false, -- show "modified" marks on the sign column
-        use_signstatus = true, -- show "modified" marks on the status column
+        use_signstatus = true,  -- show "modified" marks on the status column
       },
       issues = {
         order_by = {            -- criteria to sort results of `Octo issue list`
           field = "CREATED_AT", -- either COMMENTS, CREATED_AT or UPDATED_AT (https://docs.github.com/en/graphql/reference/enums#issueorderfield)
-          direction =
-          "DESC"                -- either DESC or ASC (https://docs.github.com/en/graphql/reference/enums#orderdirection)
+          direction = "DESC"    -- either DESC or ASC (https://docs.github.com/en/graphql/reference/enums#orderdirection)
         }
       },
       reviews = {
@@ -109,8 +144,7 @@ return {
       pull_requests = {
         order_by = {                            -- criteria to sort the results of `Octo pr list`
           field = "CREATED_AT",                 -- either COMMENTS, CREATED_AT or UPDATED_AT (https://docs.github.com/en/graphql/reference/enums#issueorderfield)
-          direction =
-          "DESC"                                -- either DESC or ASC (https://docs.github.com/en/graphql/reference/enums#orderdirection)
+          direction = "DESC"                    -- either DESC or ASC (https://docs.github.com/en/graphql/reference/enums#orderdirection)
         },
         always_select_remote_on_create = false, -- always give prompt to select base remote repo when creating PRs
         use_branch_name_as_title = false        -- sets branch name to be the name for the PR
@@ -138,6 +172,25 @@ return {
       },
       mappings_disable_default = false, -- disable default mappings if true, but will still adapt user mappings
       mappings = {
+        discussion = {
+          open_in_browser = { lhs = "<C-b>", desc = "open discussion in browser" },
+          copy_url = { lhs = "<C-y>", desc = "copy url to system clipboard" },
+          add_comment = { lhs = "<localleader>ca", desc = "add comment" },
+          add_reply = { lhs = "<localleader>cr", desc = "add reply" },
+          delete_comment = { lhs = "<localleader>cd", desc = "delete comment" },
+          add_label = { lhs = "<localleader>la", desc = "add label" },
+          remove_label = { lhs = "<localleader>ld", desc = "remove label" },
+          next_comment = { lhs = "]c", desc = "go to next comment" },
+          prev_comment = { lhs = "[c", desc = "go to previous comment" },
+          react_hooray = { lhs = "<localleader>rp", desc = "add/remove 🎉 reaction" },
+          react_heart = { lhs = "<localleader>rh", desc = "add/remove ❤️ reaction" },
+          react_eyes = { lhs = "<localleader>re", desc = "add/remove 👀 reaction" },
+          react_thumbs_up = { lhs = "<localleader>r+", desc = "add/remove 👍 reaction" },
+          react_thumbs_down = { lhs = "<localleader>r-", desc = "add/remove 👎 reaction" },
+          react_rocket = { lhs = "<localleader>rr", desc = "add/remove 🚀 reaction" },
+          react_laugh = { lhs = "<localleader>rl", desc = "add/remove 😄 reaction" },
+          react_confused = { lhs = "<localleader>rc", desc = "add/remove 😕 reaction" },
+        },
         runs = {
           expand_step = { lhs = "o", desc = "expand workflow step" },
           open_in_browser = { lhs = "<C-b>", desc = "open workflow run in browser" },
@@ -148,6 +201,7 @@ return {
           copy_url = { lhs = "<C-y>", desc = "copy url to system clipboard" },
         },
         issue = {
+          issue_options = { lhs = "<CR>", desc = "show issue options" },
           close_issue = { lhs = "<localleader>ic", desc = "close issue" },
           reopen_issue = { lhs = "<localleader>io", desc = "reopen issue" },
           list_issues = { lhs = "<localleader>il", desc = "list open issues on same repo" },
@@ -175,8 +229,9 @@ return {
           react_confused = { lhs = "<localleader>rc", desc = "add/remove 😕 reaction" },
         },
         pull_request = {
+          pr_options = { lhs = "<CR>", desc = "show PR options" },
           checkout_pr = { lhs = "<localleader>po", desc = "checkout PR" },
-          merge_pr = { lhs = "<localleader>pm", desc = "merge commit PR" },
+          merge_pr = { lhs = "<localleader>pm", desc = "merge PR" },
           squash_and_merge_pr = { lhs = "<localleader>psm", desc = "squash and merge PR" },
           rebase_and_merge_pr = { lhs = "<localleader>prm", desc = "rebase and merge PR" },
           merge_pr_queue = { lhs = "<localleader>pq", desc = "merge commit PR and add to merge queue (Merge queue must be enabled in the repo)" },
@@ -230,6 +285,8 @@ return {
           select_prev_entry = { lhs = "[q", desc = "move to previous changed file" },
           select_first_entry = { lhs = "[Q", desc = "move to first changed file" },
           select_last_entry = { lhs = "]Q", desc = "move to last changed file" },
+          select_next_unviewed_entry = { lhs = "]u", desc = "move to next unviewed changed file" },
+          select_prev_unviewed_entry = { lhs = "[u", desc = "move to previous unviewed changed file" },
           close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
           react_hooray = { lhs = "<localleader>rp", desc = "add/remove 🎉 reaction" },
           react_heart = { lhs = "<localleader>rh", desc = "add/remove ❤️ reaction" },
@@ -261,6 +318,8 @@ return {
           select_prev_entry = { lhs = "[q", desc = "move to previous changed file" },
           select_first_entry = { lhs = "[Q", desc = "move to first changed file" },
           select_last_entry = { lhs = "]Q", desc = "move to last changed file" },
+          select_next_unviewed_entry = { lhs = "]u", desc = "move to next unviewed changed file" },
+          select_prev_unviewed_entry = { lhs = "[u", desc = "move to previous unviewed changed file" },
           close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
           toggle_viewed = { lhs = "<localleader><space>", desc = "toggle viewer viewed state" },
           goto_file = { lhs = "gf", desc = "go to file" },
@@ -278,6 +337,8 @@ return {
           select_prev_entry = { lhs = "[q", desc = "move to previous changed file" },
           select_first_entry = { lhs = "[Q", desc = "move to first changed file" },
           select_last_entry = { lhs = "]Q", desc = "move to last changed file" },
+          select_next_unviewed_entry = { lhs = "]u", desc = "move to next unviewed changed file" },
+          select_prev_unviewed_entry = { lhs = "[u", desc = "move to previous unviewed changed file" },
           close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
           toggle_viewed = { lhs = "<localleader><space>", desc = "toggle viewer viewed state" },
         },
@@ -286,7 +347,17 @@ return {
           done = { lhs = "<localleader>nd", desc = "mark notification as done" },
           unsubscribe = { lhs = "<localleader>nu", desc = "unsubscribe from notifications" },
         },
+        repo = {
+          repo_options = { lhs = "<CR>", desc = "show repo options" },
+          create_issue = { lhs = "<localleader>ic", desc = "create issue" },
+          create_discussion = { lhs = "<localleader>dc", desc = "create discussion" },
+          contributing_guidelines = { lhs = "<localleader>cg", desc = "view contributing guidelines" },
+          open_in_browser = { lhs = "<C-b>", desc = "open repo in browser" },
+        },
+        release = {
+          open_in_browser = { lhs = "<C-b>", desc = "open release in browser" },
+        },
       },
-    })
+    }
   end
 }
