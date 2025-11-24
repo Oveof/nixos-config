@@ -11,6 +11,9 @@ return
     require("dbee").install()
   end,
   config = function()
-    require("dbee").setup(--[[optional config]])
+    require("dbee").setup( --[[optional config]])
   end,
+  -- keys = {
+  --   { "<leader>do", function() require("dbee").open() end, desc = "Open db view" },
+  -- }
 }

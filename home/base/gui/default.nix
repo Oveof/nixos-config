@@ -1,7 +1,6 @@
-{...}:
+{ ... }:
 {
   imports = [
-    ./hyprland
     ./terminal
     ./discord.nix
     ./firefox.nix
@@ -16,5 +15,7 @@
     ./ghostty
     ./pomodoro.nix
     ./chromium.nix
+    ./noctalia.nix
+    ./mako/mako.nix
   ];
 }

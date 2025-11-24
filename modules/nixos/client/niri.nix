@@ -1,0 +1,54 @@
+{
+  pkgs,
+  config,
+  lib,
+  username,
+  ...
+}:
+{
+  # Packages (leave as you have them)
+  environment.systemPackages = with pkgs; [
+    # fuzzel
+    # quickshell
+    # xwayland-satellite
+    xdg-desktop-portal-gnome
+    flameshot
+    mako
+    wl-clipboard
+
+    # swww
+  ];
+
+  programs.obs-studio.enable = true;
+
+  # If Niri is now managed by Home Manager, start the HM session wrapper:
+  services.greetd = {
+    enable = true;
+    settings.default_session = {
+      user = username;
+      command = "niri-session"; # HM generates this
+      # or: "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd $HOME/.wayland-session"
+    };
+  };
+
+  programs.niri.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk # for gtk
+      xdg-desktop-portal-gnome
+      kdePackages.xdg-desktop-portal-kde
+      # xdg-desktop-portal-kde  # for kde
+    ];
+  };
+  environment.variables = {
+    XDG_SESSION_TYPE = "wayland";
+    XDG_CURRENT_DESKTOP = "gnome";
+    XDG_SESSION_DESKTOP = "niri";
+    MOZ_ENABLE_WAYLAND = "1";
+    GDK_BACKEND = "wayland";
+    QT_QPA_PLATFORM = "wayland";
+  };
+  security.polkit.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+}

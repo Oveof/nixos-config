@@ -3,7 +3,8 @@
   pkgs,
   username,
   ...
-}: {
+}:
+{
 
   # auto upgrade nix to the unstable version
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/tools/package-management/nix/default.nix#L284
@@ -52,6 +53,7 @@
     tlrc
     btop
     playerctl
+    # obs-studio
   ];
 
   users.users.${username} = {
@@ -60,6 +62,9 @@
 
   nix.settings = {
     # enable flakes globally
-    experimental-features = ["nix-command" "flakes"];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
   };
 }

@@ -3,9 +3,12 @@ email = "ovedy@oftedal.com"
 name = "Ove Oftedal"
 
 [ui]
-paginate = "never"
+paginate = "auto"
 editor = "nvim"
-default-command = "log"
+default-command = ["log", "-n", "20", "--no-pager"]
+
+[aliases]
+
 # diff-editor = "diffconflicts"
 #
 # [merge-tools.diffconflicts]

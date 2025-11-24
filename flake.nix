@@ -1,7 +1,6 @@
 {
   description = "Ove Nixos Config";
 
-
   # outputs = inputs: import ./outputs inputs;
 
   # This is the standard format for flake.nix. `inputs` are the dependencies of the flake,
@@ -34,240 +33,269 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
+      url = "github:nix-community/lanzaboote/v0.4.3";
 
       # Optional but recommended to limit the size of your system closure.
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprpanel = {
-      url = "github:Jas-SinghFSU/HyprPanel";
-      inputs.nixpkgs.follows = "nixpkgs";
+    hyprland.url = "github:hyprwm/Hyprland";
+    split-monitor-workspaces = {
+      url = "github:Duckonaut/split-monitor-workspaces";
+      inputs.hyprland.follows = "hyprland"; # <- make sure this line is present for the plugin to work as intended
+    };
+    hyprsplit = {
+      url = "github:shezdy/hyprsplit";
+      inputs.hyprland.follows = "hyprland"; # <- make sure this line is present for the plugin to work as intended
     };
     nix-ld = {
       url = "github:Mic92/nix-ld";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  };
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    home-manager,
-    nixos-hardware,
-    nixos-wsl,
-    lanzaboote,
-    hyprpanel,
-    nix-ld,
-    ...
-  }: {
-    nixosConfigurations = {
-      gpc = let
-        username = "ove";
-        specialArgs = {inherit username;};
-      in
-        nixpkgs.lib.nixosSystem {
-          inherit specialArgs;
-          system = "x86_64-linux";
-
-          modules = [
-            ./hosts/gpc
-            nix-ld.nixosModules.nix-ld
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-	      home-manager.backupFileExtension = "backup";
-              home-manager.useUserPackages = true;
-
-
-              home-manager.extraSpecialArgs = inputs // specialArgs;
-              home-manager.users.${username} = import ./hosts/gpc/home.nix;
-            }
-          ];
-        };
-      sp6 = let
-        username = "ove";
-        specialArgs = {inherit username;};
-      in
-        nixpkgs.lib.nixosSystem {
-          inherit specialArgs;
-          system = "x86_64-linux";
-
-          modules = [
-            ./hosts/sp6
-            nix-ld.nixosModules.nix-ld
-            nixos-hardware.nixosModules.microsoft-surface-pro-intel
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-	      home-manager.backupFileExtension = "backup";
-              home-manager.useUserPackages = true;
-
-
-              home-manager.extraSpecialArgs = inputs // specialArgs;
-              home-manager.users.${username} = import ./hosts/gpc/home.nix;
-            }
-          ];
-        };
-      t14s = let
-        username = "ove";
-        specialArgs = {inherit username;};
-      in
-        nixpkgs.lib.nixosSystem {
-          inherit specialArgs;
-          system = "x86_64-linux";
-
-          modules = [
-            ./hosts/t14s
-            {nixpkgs.overlays = [inputs.hyprpanel.overlay];}
-            nix-ld.nixosModules.nix-ld
-
-            nixos-hardware.nixosModules.lenovo-thinkpad-t14s
-            # ./users/${username}/nixos.nix
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-	      home-manager.backupFileExtension = "backup";
-              home-manager.useUserPackages = true;
-
-
-              home-manager.extraSpecialArgs = inputs // specialArgs;
-              # home-manager.users.${username} = import ./users/${username}/home.nix;
-              home-manager.users.${username} = import ./hosts/t14s/home.nix;
-            }
-          ];
-        };
-
-      wsl = let
-        username = "ove";
-        specialArgs = {inherit username;};
-      in
-        nixpkgs.lib.nixosSystem {
-          inherit specialArgs;
-          system = "x86_64-linux";
-
-          modules = [
-            # ./home/linux/gui.nix
-            ./hosts/wsl
-
-            nixos-wsl.nixosModules.wsl
-            # ./users/${username}/nixos.nix
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-
-              home-manager.extraSpecialArgs = inputs // specialArgs;
-              # home-manager.users.${username} = import ./users/${username}/home.nix;
-              home-manager.users.${username} = import ./home/tui.nix;
-            }
-          ];
-        };
-
-      y50 = let
-        username = "ove";
-        specialArgs = {inherit username;};
-      in
-        nixpkgs.lib.nixosSystem {
-          inherit specialArgs;
-          system = "x86_64-linux";
-
-          modules = [
-            ./hosts/y50
-
-            # ./users/${username}/nixos.nix
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-
-              home-manager.extraSpecialArgs = inputs // specialArgs;
-              # home-manager.users.${username} = import ./users/${username}/home.nix;
-              home-manager.users.${username} = import ./home/gui.nix;
-            }
-          ];
-        };
-
-      g8 = let
-        username = "ove";
-        specialArgs = {inherit username;};
-      in
-        nixpkgs.lib.nixosSystem {
-          inherit specialArgs;
-          system = "x86_64-linux";
-
-          modules = [
-            ./hosts/g8
-
-            # ./users/${username}/nixos.nix
-            lanzaboote.nixosModules.lanzaboote
-            nix-ld.nixosModules.nix-ld
-
-            {nixpkgs.overlays = [inputs.hyprpanel.overlay];}
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-
-              home-manager.extraSpecialArgs = inputs // specialArgs;
-              # home-manager.users.${username} = import ./users/${username}/home.nix;
-              home-manager.users.${username} = import ./hosts/g8/home.nix;
-
-              # home-manager.services.wayland.windowManager.hyprland = {
-              #   monitor = "eDP-1,highres,auto,1.5,bitdepth,10";
-              # };
-            }
-          ];
-        };
-      proxmox = let
-        username = "ove";
-        specialArgs = {inherit username;};
-      in
-        nixpkgs.lib.nixosSystem {
-          inherit specialArgs;
-          system = "x86_64-linux";
-
-          modules = [
-            ./hosts/proxmox
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-
-              home-manager.extraSpecialArgs = inputs // specialArgs;
-              # home-manager.users.${username} = import ./users/${username}/home.nix;
-              home-manager.users.${username} = import ./home/tui.nix;
-            }
-          ];
-        };
-      atlas = let
-        username = "ove";
-        specialArgs = {inherit username;};
-      in
-        nixpkgs.lib.nixosSystem {
-          inherit specialArgs;
-          system = "x86_64-linux";
-
-          modules = [
-            ./hosts/atlas
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-
-              home-manager.extraSpecialArgs = inputs // specialArgs;
-              # home-manager.users.${username} = import ./users/${username}/home.nix;
-              home-manager.users.${username} = import ./home/tui.nix;
-            }
-          ];
-        };
-
+    quickshell = {
+      url = "github:outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.quickshell.follows = "quickshell"; # Use same quickshell version
     };
   };
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      home-manager,
+      nixos-hardware,
+      nixos-wsl,
+      lanzaboote,
+      nix-ld,
+      noctalia,
+      ...
+    }:
+    {
+      nixosConfigurations = {
+        gpc =
+          let
+            username = "ove";
+            specialArgs = { inherit username; };
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit specialArgs;
+            system = "x86_64-linux";
+
+            modules = [
+              ./hosts/gpc
+              nix-ld.nixosModules.nix-ld
+              noctalia.nixosModules.default
+
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.backupFileExtension = "backup";
+                home-manager.useUserPackages = true;
+
+                home-manager.extraSpecialArgs = inputs // specialArgs;
+                home-manager.users.${username} = {
+                  imports = [
+                    noctalia.homeModules.default
+                    (import ./hosts/gpc/home.nix)
+                  ];
+                };
+              }
+            ];
+          };
+        sp6 =
+          let
+            username = "ove";
+            specialArgs = { inherit username; };
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit specialArgs;
+            system = "x86_64-linux";
+
+            modules = [
+              ./hosts/sp6
+              nix-ld.nixosModules.nix-ld
+              nixos-hardware.nixosModules.microsoft-surface-pro-intel
+
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.backupFileExtension = "backup";
+                home-manager.useUserPackages = true;
+
+                home-manager.extraSpecialArgs = inputs // specialArgs;
+                # home-manager.users.${username} = import ./hosts/gpc/home.nix;
+              }
+            ];
+          };
+        t14s =
+          let
+            username = "ove";
+            specialArgs = { inherit username; };
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit specialArgs;
+            system = "x86_64-linux";
+
+            modules = [
+              ./hosts/t14s
+              nix-ld.nixosModules.nix-ld
+
+              nixos-hardware.nixosModules.lenovo-thinkpad-t14s
+              # ./users/${username}/nixos.nix
+
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.backupFileExtension = "backup";
+                home-manager.useUserPackages = true;
+
+                home-manager.extraSpecialArgs = inputs // specialArgs;
+                # home-manager.users.${username} = import ./users/${username}/home.nix;
+                home-manager.users.${username} = import ./hosts/t14s/home.nix;
+              }
+            ];
+          };
+
+        wsl =
+          let
+            username = "ove";
+            specialArgs = { inherit username; };
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit specialArgs;
+            system = "x86_64-linux";
+
+            modules = [
+              # ./home/linux/gui.nix
+              ./hosts/wsl
+
+              nixos-wsl.nixosModules.wsl
+              # ./users/${username}/nixos.nix
+
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+
+                home-manager.extraSpecialArgs = inputs // specialArgs;
+                # home-manager.users.${username} = import ./users/${username}/home.nix;
+                home-manager.users.${username} = import ./home/tui.nix;
+              }
+            ];
+          };
+
+        y50 =
+          let
+            username = "ove";
+            specialArgs = { inherit username; };
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit specialArgs;
+            system = "x86_64-linux";
+
+            modules = [
+              ./hosts/y50
+
+              # ./users/${username}/nixos.nix
+
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+
+                home-manager.extraSpecialArgs = inputs // specialArgs;
+                # home-manager.users.${username} = import ./users/${username}/home.nix;
+                home-manager.users.${username} = import ./home/gui.nix;
+              }
+            ];
+          };
+
+        g8 =
+          let
+            username = "ove";
+            specialArgs = { inherit username; };
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit specialArgs;
+            system = "x86_64-linux";
+
+            modules = [
+              ./hosts/g8
+              noctalia.nixosModules.default
+
+              # ./users/${username}/nixos.nix
+              lanzaboote.nixosModules.lanzaboote
+              nix-ld.nixosModules.nix-ld
+
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+
+                home-manager.extraSpecialArgs = inputs // specialArgs;
+                # home-manager.users.${username} = import ./hosts/g8/home.nix;
+                home-manager.users.${username} = {
+                  imports = [
+                    noctalia.homeModules.default
+                    (import ./hosts/g8/home.nix)
+                  ];
+                };
+                # home-manager.services.wayland.windowManager.hyprland = {
+                #   monitor = "eDP-1,highres,auto,1.5,bitdepth,10";
+                # };
+              }
+            ];
+          };
+        proxmox =
+          let
+            username = "ove";
+            specialArgs = { inherit username; };
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit specialArgs;
+            system = "x86_64-linux";
+
+            modules = [
+              ./hosts/proxmox
+
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+
+                home-manager.extraSpecialArgs = inputs // specialArgs;
+                # home-manager.users.${username} = import ./users/${username}/home.nix;
+                home-manager.users.${username} = import ./home/tui.nix;
+              }
+            ];
+          };
+        atlas =
+          let
+            username = "ove";
+            specialArgs = { inherit username; };
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit specialArgs;
+            system = "x86_64-linux";
+
+            modules = [
+              ./hosts/atlas
+
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+
+                home-manager.extraSpecialArgs = inputs // specialArgs;
+                # home-manager.users.${username} = import ./users/${username}/home.nix;
+                home-manager.users.${username} = import ./home/tui.nix;
+              }
+            ];
+          };
+
+      };
+    };
 }

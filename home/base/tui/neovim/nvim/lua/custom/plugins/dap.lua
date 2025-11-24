@@ -1,6 +1,6 @@
 local function get_args(config)
   local args = type(config.args) == "function" and (config.args() or {}) or config.args or
-  {} --[[@as string[] | string ]]
+      {} --[[@as string[] | string ]]
   local args_str = type(args) == "table" and table.concat(args, " ") or args --[[@as string]]
 
   config = vim.deepcopy(config)
@@ -37,4 +37,21 @@ return { {
     { "<leader>dt", function() require("dap").terminate() end,                                            desc = "Terminate" },
     { "<leader>dw", function() require("dap.ui.widgets").hover() end,                                     desc = "Widgets" },
   },
+  config = function()
+    local dap = require("dap")
+    dap.adapters.coreclr = {
+      type = 'executable',
+      command = 'netcoredbg',
+      args = { '--interpreter=vscode' }
+    }
+
+    dap.configurations.cs = { {
+      type = "coreclr",
+      name = "launch - netcoredbg",
+      request = "launch",
+      program = function()
+        return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
+      end,
+    }, }
+  end
 } }

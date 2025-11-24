@@ -75,14 +75,14 @@ return {
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-t>.
-          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          map('gd', function() Snacks.picker.lsp_definitions() end, '[G]oto [D]efinition')
 
           -- Find references for the word under your cursor.
           map('gr', require('snacks.picker').lsp_references, '[G]oto [R]eferences')
 
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
-          map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+          map('gI', function() Snacks.picker.lsp_implementations() end, '[G]oto [I]mplementation')
 
           -- Jump to the type of the word under your cursor.
           --  Useful when you're not sure what type a variable is and you want to see
@@ -107,7 +107,7 @@ return {
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
-          map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+          map('gD', function() Snacks.picker.lsp_declarations() end, '[G]oto [D]eclaration')
 
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
@@ -167,39 +167,41 @@ return {
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        pyright = {},
-        texlab = {},
-        zls = {},
-        gopls = {},
-        nil_ls = {},
-        marksman = {},
-        ts_ls = {},
-        -- csharp_ls = {},
-        omnisharp = { cmd = { "OmniSharp" } },
-        -- pylsp = {},
-        -- clangd = {},
-        -- pyright = {},
-        rust_analyzer = {},
+        ["pyright"] = {},
+        ["texlab"] = {},
+        ["zls"] = {},
+        ["gopls"] = {},
+        ["nil_ls"] = {},
+        ["marksman"] = {},
+        -- ["ts_ls"] = {},
+        ["vtsls"] = {},
+        ["angularls"] = {},
+        -- ["csharp_ls"] = {},
+        ["omnisharp"] = {},
+        -- ["pylsp"] = {},
+        -- ["clangd"] = {},
+        -- ["pyright"] = {},
+        ["rust_analyzer"] = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
         --    https://github.com/pmizio/typescript-tools.nvim
         --
-        -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
+        -- But for many setups, the LSP ("ts_ls") will work just fine
+        -- ["ts_ls"] = {},
         --
 
-        lua_ls = {
+        ["lua_ls"] = {
           -- cmd = {...},
           -- filetypes = { ...},
           -- capabilities = {},
           settings = {
-            Lua = {
+            ["Lua"] = {
               completion = {
-                callSnippet = 'Replace',
+                callSnippet = "Replace",
               },
               -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
+              -- diagnostics = { disable = { "missing-fields" } },
             },
           },
         },
@@ -210,31 +212,33 @@ return {
       --    :Mason
       --
       --  You can press `g?` for help in this menu.
-      require('mason').setup()
+      -- require('mason').setup()
 
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
-      local ensure_installed = vim.tbl_keys(servers or {})
+      -- local ensure_installed = vim.tbl_keys(servers or {})
       -- vim.list_extend(ensure_installed, {
       --   'stylua', -- Used to format Lua code
       -- })
       -- require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-      for k, v in pairs(servers) do
-        require('lspconfig')[k].setup(v)
+      for name, opts in pairs(servers) do
+        -- require('lspconfig')[k].setup(v)
+        vim.lsp.config(name, opts)
+        vim.lsp.enable(name)
       end
 
-      require('mason-lspconfig').setup {
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for ts_ls)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
-      }
+      -- require('mason-lspconfig').setup {
+      --   handlers = {
+      --     function(server_name)
+      --       local server = servers[server_name] or {}
+      --       -- This handles overriding only values explicitly passed
+      --       -- by the server configuration above. Useful when disabling
+      --       -- certain features of an LSP (for example, turning off formatting for ts_ls)
+      --       server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+      --       require('lspconfig')[server_name].setup(server)
+      --     end,
+      --   },
+      -- }
     end,
   },
 }

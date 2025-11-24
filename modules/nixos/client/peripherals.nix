@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   #============================= Audio(PipeWire) =======================
 
   environment.systemPackages = with pkgs; [
@@ -33,6 +34,8 @@
     nssmdns4 = true;
     openFirewall = true;
   };
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
   services.tailscale.enable = true;
 
   services = {
@@ -43,6 +46,7 @@
       # gnome-settings-daemon
       platformio # udev rules for platformio
       openocd # required by paltformio, see https://github.com/NixOS/nixpkgs/issues/224895
+      qmk-udev-rules
     ];
     udev.extraRules = ''
       KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
