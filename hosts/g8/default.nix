@@ -14,8 +14,9 @@
   imports = [
     # ../../modules/base.nix
     ../../modules/nixos/client
-    ../../modules/nixos/client/hyprland.nix
+    # ../../modules/nixos/client/hyprland.nix
     ../../modules/nixos/client/steam.nix
+    ../../modules/nixos/client/niri.nix
 
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -41,7 +42,6 @@
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver
-      libvdpau-va-gl
     ];
   };
 
