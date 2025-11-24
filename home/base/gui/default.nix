@@ -16,5 +16,6 @@
     ./pomodoro.nix
     ./chromium.nix
     ./noctalia.nix
+    ./mako/mako.nix
   ];
 }
