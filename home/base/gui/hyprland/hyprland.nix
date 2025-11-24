@@ -1,16 +1,24 @@
 {
   pkgs,
   lib,
+  split-monitor-workspaces,
+  hyprsplit,
   ...
-}: let
+}:
+let
   package = pkgs.hyprland;
-in {
+in
+{
   # NOTE:
   # We have to enable hyprland/i3's systemd user service in home-manager,
   # so that gammastep/wallpaper-switcher's user service can be start correctly!
   # they are all depending on hyprland/i3's user graphical-session
   wayland.windowManager.hyprland = {
     inherit package;
+    plugins = [
+      split-monitor-workspaces.packages.${pkgs.stdenv.hostPlatform.system}.split-monitor-workspaces
+      hyprsplit.packages.${pkgs.stdenv.hostPlatform.system}.hyprsplit
+    ];
     enable = true;
     settings = {
       # source = "${nur-ryan4yin.packages.${pkgs.system}.catppuccin-hyprland}/themes/mocha.conf";
@@ -28,13 +36,13 @@ in {
     };
     systemd = {
       enable = false;
-      variables = ["--all"];
+      variables = [ "--all" ];
     };
   };
   home.file.".config/hypr" = {
     source = ./config;
-    recursive = true;   # link recursively
-    executable = true;  # make all files executable
+    recursive = true; # link recursively
+    executable = true; # make all files executable
   };
   home.file.".wayland-session" = {
     source = "${pkgs.hyprland}/bin/Hyprland";
