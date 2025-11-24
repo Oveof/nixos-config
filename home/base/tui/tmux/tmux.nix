@@ -10,6 +10,7 @@
       pkgs.tmuxPlugins.jump
       pkgs.tmuxPlugins.resurrect
       pkgs.tmuxPlugins.continuum
+      pkgs.tmuxPlugins.yank
     ];
     extraConfig = ''
       set -g base-index 1
