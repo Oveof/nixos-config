@@ -1,21 +1,25 @@
 {
   pkgs,
+  inputs,
   config,
   lib,
   username,
   ...
 }:
 {
-  # Packages (leave as you have them)
-  environment.systemPackages = with pkgs; [
-    # fuzzel
+  environment.systemPackages = [
+    pkgs.fuzzel
     # quickshell
-    # xwayland-satellite
-    xdg-desktop-portal-gnome
-    flameshot
-    mako
-    wl-clipboard
-
+    pkgs.xwayland-satellite
+    pkgs.xdg-desktop-portal-gnome
+    pkgs.flameshot
+    pkgs.mako
+    pkgs.wl-clipboard
+    pkgs.hyprlock
+    pkgs.swaylock
+    pkgs.discord
+    pkgs.taskwarrior3
+    pkgs.taskwarrior-tui
     # swww
   ];
 
