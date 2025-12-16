@@ -17,5 +17,6 @@
     ./chromium.nix
     ./noctalia.nix
     ./mako/mako.nix
+    ./emacs
   ];
 }
