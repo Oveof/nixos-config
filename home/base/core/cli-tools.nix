@@ -23,7 +23,7 @@
     dust # A more intuitive version of `du` in rust
     gdu # disk usage analyzer(replacement of `du`)
     bat # cat replacement
-    rusty-man # rustdoc documentation viewer
+    # rusty-man # rustdoc documentation viewer
     ripgrep-all # ripgrep all (pdf books etc)
     tokei # line counter
     wiki-tui # wikipedia tui viewer
