@@ -1,0 +1,15 @@
+workspace "code" {
+    open-on-output "Lenovo Group Limited L24i-30 UPB4ATWP"
+}
+workspace "browser" {
+    open-on-output "Lenovo Group Limited L24i-30 UPB4ATVF"
+}
+workspace "comms" {
+    open-on-output "Lenovo Group Limited L24i-30 UPB4ATVF"
+}
+workspace "music" {
+    open-on-output "Lenovo Group Limited L24i-30 UPB4ATVF"
+}
+workspace "email" {
+    open-on-output "Lenovo Group Limited L24i-30 UPB4ATVF"
+}

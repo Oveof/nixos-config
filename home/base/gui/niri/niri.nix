@@ -1,4 +1,4 @@
-{ }:
+{ ... }:
 {
   home.file.".config/niri" = {
     source = ./config;
