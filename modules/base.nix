@@ -53,11 +53,18 @@
     tlrc
     btop
     playerctl
+    mlocate
     # obs-studio
   ];
 
   users.users.${username} = {
     description = username;
+  };
+
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true; # Open ports in the firewall for Syncthing. (NOTE: this will not open syncthing gui port)
+    user = "ove";
   };
 
   nix.settings = {
