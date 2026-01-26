@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 {
   virtualisation = {
     docker = {
@@ -6,7 +6,24 @@
       daemon.settings = {
         # enables pulling using containerd, which supports restarting from a partial pull
         # https://docs.docker.com/storage/containerd/
-        "features" = {"containerd-snapshotter" = true;};
+        "features" = {
+          "containerd-snapshotter" = true;
+        };
+        bip = "172.28.0.1/16";
+        "default-address-pools" = [
+          {
+            base = "172.29.0.0/16";
+            size = 24;
+          }
+          {
+            base = "172.30.0.0/16";
+            size = 24;
+          }
+          {
+            base = "172.31.0.0/16";
+            size = 24;
+          }
+        ];
       };
 
       # start dockerd on boot.
