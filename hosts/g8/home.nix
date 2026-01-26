@@ -1,10 +1,10 @@
-{...}: 
+{ ... }:
 {
   imports = [
     ../../home/gui.nix
     ../../home/work
   ];
-  home.file.".config/hypr/monitors.conf" = {
-    source = ./monitor/monitors.conf;
+  home.file.".config/niri/output.kdl" = {
+    source = ./niri/output.kdl;
   };
 }
