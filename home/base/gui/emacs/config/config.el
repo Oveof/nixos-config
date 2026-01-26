@@ -163,6 +163,146 @@
      (when (derived-mode-p 'majutsu-log-mode)
        (evil-emacs-state)))))
 
+(defvar my/j-map (make-sparse-keymap)
+  "My custom leader submap for SPC j …")
+
+(map! :leader "j" my/j-map)
+(map! :map my/j-map
+      :desc "Majutsu Log (Emacs state)" "l" #'my/majutsu-log-emacs-state
+      :desc "Justfile tasks"            "f" #'justl)
+
+
+;; (use-package! justl
+;;   :custom
+;;   (justl-per-recipe-buffer t)
+;;   :config
+;;   (map! :n "e" #'justl-exec-vterm))
+
 (map! :leader
-      :desc "Majutsu Log (Emacs state)"
-      "j" #'my/majutsu-log-emacs-state)
+      :desc "Fuzzy switch workspace"
+      "r" #'+workspace/switch-to)
+
+(use-package! grease
+  :commands (grease-open grease-toggle grease-here)
+  :init
+  (setq grease-sort-method 'type
+        grease-show-hidden nil
+        grease-preview-window-width 0.4)
+  :config
+  (map! :leader
+        (:prefix ("o g" . "Grease")
+         :desc "Toggle Grease"           "g" #'grease-toggle
+         :desc "Open Grease (current)"   "o" #'grease-open
+         :desc "Open at project root"    "h" #'grease-here)))
+
+;; Silence byte-compiler: tell it this is a special (dynamic) var.
+(defvar vterm-buffer-name)
+
+(after! vterm
+  (after! justl
+    (defun my/justl-vterm-per-recipe (orig-fn &rest args)
+      (let* ((recipe (justl--get-recipe-under-cursor))
+             (vterm-buffer-name (format "*just-%s*" (justl--recipe-name recipe))))
+        (apply orig-fn args)))
+    (advice-add #'justl-exec-vterm :around #'my/justl-vterm-per-recipe)))
+
+
+(use-package! envrc
+  :config
+  (envrc-global-mode))
+
+(add-hook 'after-save-hook
+          (lambda ()
+            (when (and (bound-and-true-p envrc-global-mode)
+                       buffer-file-name
+                       (string-match-p (rx (or ".env" ".envrc") eos) buffer-file-name))
+              (envrc-reload))))
+
+
+;; (use-package! evil-colemak-basics
+;;   :after evil
+;;   :init
+;;   ;; Enable Mod-DH / DHm support (swaps bindings for `m` and `h`)
+;;   (setq evil-colemak-basics-layout-mod 'mod-dh)
+;;   :config
+;;   (global-evil-colemak-basics-mode))
+
+;; (after! evil
+;;   ;; Window movement (C-w …)
+;;   (map! :map evil-window-map
+;;         "m" #'evil-window-left
+;;         "n" #'evil-window-down
+;;         "e" #'evil-window-up
+;;         "i" #'evil-window-right)
+
+;;   ;; Optional: put old hjkl window keys back where they came from
+;;   (map! :map evil-window-map
+;;         "h" #'evil-window-prev
+;;         "j" #'evil-window-next
+;;         "k" #'evil-window-up
+;;         "l" #'evil-window-right))
+
+;; (after! evil
+;;   (map! :map evil-window-map
+;;         "M" #'evil-window-decrease-width
+;;         "I" #'evil-window-increase-width
+;;         "N" #'evil-window-decrease-height
+;;         "E" #'evil-window-increase-height))
+
+;; ─────────────────────────────────────────────────────────────
+;; Colemak-DH toggleable Evil layer
+;; ─────────────────────────────────────────────────────────────
+
+(defvar my/colemak-dh-evil-map (make-sparse-keymap)
+  "Keymap enabled when `my/colemak-dh-evil-mode' is active.")
+
+(define-minor-mode my/colemak-dh-evil-mode
+  "Toggle Colemak-DH Evil bindings."
+  :init-value nil
+  :global t
+  ;; :keymap my/colemak-dh-evil-map
+  :lighter " CDH")   ;; ← mode-line indicator
+
+(after! evil
+  ;; -----------------------------------------------------------
+  ;; Core movement (Colemak-DH home row)
+  ;; -----------------------------------------------------------
+  ;; (evil-define-key '(normal visual motion operator)
+  ;;     my/colemak-dh-evil-map
+  ;;   ;; Movement
+  ;;   "m" #'evil-backward-char     ; ←
+  ;;   "n" #'evil-next-line         ; ↓
+  ;;   "e" #'evil-previous-line     ; ↑
+  ;;   "i" #'evil-forward-char      ; →
+
+  ;;   ;; Old m n e i functionality → hjkl
+  ;;   "h" #'evil-set-marker        ; old m
+  ;;   "j" #'evil-search-next       ; old n
+  ;;   "k" #'evil-end-of-word       ; old e
+  ;;   "l" #'evil-insert)           ; old i
+
+  ;; -----------------------------------------------------------
+  ;; Window movement (C-w …)
+  ;; -----------------------------------------------------------
+  ;; Reuse evil-window-map under C-w
+  (define-key my/colemak-dh-evil-map (kbd "C-w") evil-window-map)
+
+  (map! :map evil-window-map
+        "m" #'evil-window-left
+        "n" #'evil-window-down
+        "e" #'evil-window-up
+        "i" #'evil-window-right)
+
+  ;; Optional: window resizing (Shifted)
+  (map! :map evil-window-map
+        "M" #'evil-window-decrease-width
+        "I" #'evil-window-increase-width
+        "N" #'evil-window-decrease-height
+        "E" #'evil-window-increase-height))
+
+;; ─────────────────────────────────────────────────────────────
+;; Leader key toggle
+;; ─────────────────────────────────────────────────────────────
+(map! :leader
+      :desc "Toggle Colemak-DH Evil keys"
+      "t C" #'my/colemak-dh-evil-mode)

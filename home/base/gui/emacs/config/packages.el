@@ -17,11 +17,15 @@
 (package! tree-sitter)
 (package! transient)
 
+(package! evil-colemak-basics :recipe (:host github :repo "wbolster/emacs-evil-colemak-basics"))
+
 (package! just-mode :recipe (:host github :repo "leon-barrett/just-mode.el"))
 
 (package! justl :recipe (:host github :repo "psibi/justl.el"))
 
 (package! majutsu :recipe (:host github :repo "0WD0/majutsu"))
+
+(package! grease :recipe (:host github :repo "mwac-dev/grease.el"))
 
 
 ;; To install a package directly from a remote git repo, you must specify a
