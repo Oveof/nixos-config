@@ -14,8 +14,12 @@
     pkgs.xdg-desktop-portal-gnome
     pkgs.flameshot
     pkgs.mako
+    pkgs.libvterm
+    pkgs.cmake
+    pkgs.libtool
     pkgs.wl-clipboard
     pkgs.hyprlock
+    pkgs.cliphist
     pkgs.swaylock
     pkgs.discord
     pkgs.taskwarrior3
