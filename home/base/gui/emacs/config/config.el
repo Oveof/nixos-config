@@ -205,6 +205,17 @@
              (vterm-buffer-name (format "*just-%s*" (justl--recipe-name recipe))))
         (apply orig-fn args)))
     (advice-add #'justl-exec-vterm :around #'my/justl-vterm-per-recipe)))
+(after! justl
+  (setq justl-shell 'vterm)
+
+  (map! :map justl-mode-map
+        :localleader
+        :desc "Execute recipe in vterm"
+        "x" #'justl-exec-vterm
+        :desc "Execute recipe"
+        "e" #'justl-exec-recipe
+        :desc "Execute default in vterm"
+        "d" #'justl-exec-default-recipe))
 
 
 (use-package! envrc
@@ -306,3 +317,38 @@
 (map! :leader
       :desc "Toggle Colemak-DH Evil keys"
       "t C" #'my/colemak-dh-evil-mode)
+
+
+
+;; TS/JS buffers
+(add-hook 'typescript-mode-hook #'lsp-deferred)
+(add-hook 'js-mode-hook #'lsp-deferred)
+
+;; Angular templates are usually web-mode in Doom
+(add-hook 'web-mode-hook #'lsp-deferred)
+
+
+(after! lsp-mode
+  (require 'lsp-angular)
+
+  ;; Only treat a buffer as "Angular-project HTML" if we're under a folder
+  ;; that contains angular.json (adjust if you use Nx or other layouts).
+  (defun my/angular-project-p ()
+    (locate-dominating-file default-directory "angular.json"))
+
+  ;; Register an Angular LS client that can attach to web-mode HTML buffers
+  ;; *in Angular projects*, without replacing your normal HTML server.
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection
+    (lsp-stdio-connection
+     (or lsp-clients-angular-language-server-command
+         '("ngserver" "--stdio")))
+    :activation-fn
+    (lambda (filename _mode)
+      (and filename
+           (string-match-p "\\.html\\'" filename)
+           (eq major-mode 'web-mode)
+           (my/angular-project-p)))
+    :add-on? t
+    :server-id 'angular-ls-webmode)))
