@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 {
   fonts = {
     enableDefaultPackages = true;
@@ -9,11 +9,12 @@
       nerd-fonts.fira-code
       meslo-lg
       jetbrains-mono
+      symbola
     ];
     fontconfig.defaultFonts = {
-      serif = ["FiraCode Nerd Font"];
-      sansSerif = ["FiraCode Nerd Font"];
-      monospace = ["FiraMono Nerd Font"];
+      serif = [ "FiraCode Nerd Font" ];
+      sansSerif = [ "FiraCode Nerd Font" ];
+      monospace = [ "FiraMono Nerd Font" ];
     };
   };
 }
