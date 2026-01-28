@@ -1,0 +1,24 @@
+[general]
+output-filename = "/tmp/test-%Y-%m-%d_%H:%M:%S.png"
+copy-command = "wl-copy"
+# [possible values: save-to-clipboard, save-to-file, save-to-file-as, copy-filepath-to-clipboard, exit]
+actions-on-enter = ["save-to-clipboard", "exit"]
+# Actions to trigger on Escape key (order is important)
+# [possible values: save-to-clipboard, save-to-file, save-to-file-as, copy-filepath-to-clipboard, exit]
+actions-on-escape = ["exit"]
+
+# Tool selection keyboard shortcuts (since 0.20.0)
+[keybinds]
+pointer = "p"
+crop = "c"
+brush = "b"
+line = "i"
+arrow = "z"
+rectangle = "r"
+ellipse = "e"
+text = "t"
+marker = "m"
+blur = "u"
+highlight = "g"
+
+

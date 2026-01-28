@@ -19,6 +19,6 @@
     ./mako/mako.nix
     ./niri
     ./emacs
-    ./satty.nix
+    ./satty
   ];
 }
