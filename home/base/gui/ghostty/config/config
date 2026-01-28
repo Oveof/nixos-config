@@ -1,0 +1,5 @@
+theme = Gruvbox Dark
+window-decoration = none
+font-family = "JetBrains Mono"
+font-size = 10
+window-inherit-font-size = false
