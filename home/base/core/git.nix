@@ -37,6 +37,10 @@
       # trim.bases = "develop,master,main"; # for git-trim
       push.autoSetupRemote = true;
       pull.rebase = true;
+      github.user = "oveof";
+
+      # host-specific override (matches the error message)
+      "github \"api.github.com\"".user = "oveof";
 
     };
   };
