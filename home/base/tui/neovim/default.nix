@@ -4,7 +4,7 @@
   #   enable = true;
   # };
   xdg.configFile."nvim" = {
-    source = config.lib.file.mkOutOfStoreSymlink /home/ove/repos/nixos-config/home/base/tui/neovim/nvim;
+    source = config.lib.file.mkOutOfStoreSymlink /home/magnus/repos/nixos-config-flake/home/base/tui/neovim/nvim;
     recursive = true;
   };
 }
