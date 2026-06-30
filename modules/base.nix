@@ -54,7 +54,7 @@
     btop
     playerctl
     mlocate
-    # obs-studio
+    cmake
   ];
 
   users.users.${username} = {
