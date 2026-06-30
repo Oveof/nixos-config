@@ -55,6 +55,7 @@
     playerctl
     mlocate
     cmake
+    cliphist
   ];
 
   users.users.${username} = {
