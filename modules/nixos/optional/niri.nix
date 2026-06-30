@@ -28,8 +28,13 @@
     pkgs.samba
     pkgs.git-cliff
     pkgs.tuigreet
+    # pkgs.gnupg
     # swww
   ];
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-gnome3; # works on Wayland
+  };
   # If Niri is now managed by Home Manager, start the HM session wrapper:
   services.greetd = {
     enable = true;
