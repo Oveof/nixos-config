@@ -13,7 +13,8 @@
 {
   imports = [
     ../../modules/nixos/client
-    ../../modules/nixos/optional/niri.nix
+    ../../modules/nixos/optional/niri/niri.nix
+    ../../modules/nixos/optional/niri/greetd.nix
 
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
