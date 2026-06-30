@@ -8,7 +8,6 @@
     mako
     libvterm
     wl-clipboard
-    hyprlock
     cliphist
   ];
 

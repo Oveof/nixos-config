@@ -51,6 +51,10 @@
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mangowm = {
+      url = "github:mangowm/mango";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     inputs@{
@@ -62,6 +66,7 @@
       lanzaboote,
       nix-ld,
       dms,
+      mangowm,
       ...
     }:
     {
@@ -252,6 +257,7 @@
               # lanzaboote.nixosModules.lanzaboote
               nix-ld.nixosModules.nix-ld
               nixos-hardware.nixosModules.lenovo-thinkpad
+              mangowm.nixosModules.mango
 
               home-manager.nixosModules.home-manager
               {

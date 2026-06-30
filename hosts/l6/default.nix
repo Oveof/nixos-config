@@ -13,8 +13,8 @@
 {
   imports = [
     ../../modules/nixos/client
-    ../../modules/nixos/optional/niri/niri.nix
-    ../../modules/nixos/optional/niri/greetd.nix
+    ../../modules/nixos/optional/mango/mango.nix
+    ../../modules/nixos/optional/mango/greetd.nix
 
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -40,6 +40,7 @@
   hardware.opengl = {
     enable = true;
   };
+  hardware.cpu.amd.ryzen-smu.enable = true;
 
   services.openssh.enable = true;
   # boot.lanzaboote = {
