@@ -10,7 +10,6 @@
     wl-clipboard
     hyprlock
     cliphist
-    swaylock
   ];
 
 }
