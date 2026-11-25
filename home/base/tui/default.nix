@@ -1,8 +1,0 @@
-{...}:
-{
-  imports = [
-    ./atuin
-    ./neovim
-    ./tmux
-  ];
-}
